@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"
+      integrity="sha256-+Q/z/qVOexByW1Wpv81lTLvntnZQVYppIL1lBdhtIq0="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>LX-KIT</title>
+  </head>
+  <body>
+    <!-- Background Image -->
+
+    <!-- Drum Keys -->
+    <div class="keys">
+      <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="sound">Closed Hat</span>
+      </div>
+      <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">Snare</span>
+      </div>
+      <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">Clap</span>
+      </div>
+      <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">Kick</span>
+      </div>
+      <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">Open Hat</span>
+      </div>
+      <div data-key="72" class="key">
+        <kbd>H</kbd>
+        <span class="sound">Tom</span>
+      </div>
+      <div data-key="74" class="key">
+        <kbd>J</kbd>
+        <span class="sound">Clave</span>
+      </div>
+      <div data-key="75" class="key">
+        <kbd>K</kbd>
+        <span class="sound">808</span>
+      </div>
+      <div data-key="76" class="key">
+        <kbd>L</kbd>
+        <span class="sound">Vox</span>
+      </div>
+    </div>
+
+    <!-- Drum Audio -->
+    <audio data-key="65" src="/Sounds/Closed Hat.wav"></audio>
+    <audio data-key="83" src="/Sounds/Snare.wav"></audio>
+    <audio data-key="68" src="/Sounds/Clap.wav"></audio>
+    <audio data-key="70" src="/Sounds/Kick.wav"></audio>
+    <audio data-key="71" src="/Sounds/Open Hat.wav"></audio>
+    <audio data-key="72" src="/Sounds/Tom.wav"></audio>
+    <audio data-key="74" src="/Sounds/Clave.wav"></audio>
+    <audio data-key="75" src="/Sounds/808.wav"></audio>
+    <audio data-key="76" src="/Sounds/Vox.wav"></audio>
+
+    <!-- Script -->
+    <script>
+        function playSound(e) {
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+  if (!audio) return; // stop function from running
+  audio.currentTime = 0; //cut by itself
+  audio.play();
+  key.classList.add("playing");
+}
+
+function removeTransition(e) {
+  if (e.propertyName !== "transform") return; //skip if not a transform
+  this.classList.remove("playing");
+}
+
+const keys = document.querySelectorAll(".key");
+keys.forEach((key) => key.addEventListener("transitionend", removeTransition));
+window.addEventListener("keydown", playSound);
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
